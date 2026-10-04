@@ -1,4 +1,8 @@
 import { useEffect, useState } from 'react';
+import blogImage from './assets/blog.png';
+import extractImage from './assets/extract.png';
+import lockinImage from './assets/lockin.png';
+import selfPortrait from './assets/selfpor.jpg';
 import {
   BrowserRouter,
   Link,
@@ -25,7 +29,7 @@ const projectSamples = [
     number: '01',
     title: 'My First Big Web project for Blogging (blog-project)',
     category: 'WEB DESIGN / FULL STACK',
-    image: '../src/assets/blog.png',
+    image: blogImage,
     alt: 'My first big web project.',
     description:
       'Social media website, full stack focused on user security, databasing user content, including hashed user credentials such as login and registration.',
@@ -39,7 +43,7 @@ const projectSamples = [
     number: '02',
     title: "Patrick's Self Control Application",
     category: 'Scheduling / Productivity',
-    image: '../src/assets/lockin.png',
+    image: lockinImage,
     alt: 'Notebook, pen, and calculator on a desk',
     description:
       'A simple web application that allows users to schedule their time and block distracting websites, helping them stay focused and productive.',
@@ -52,7 +56,7 @@ const projectSamples = [
     number: '03',
     title: 'Simple Mod Extractor',
     category: 'BACK-END INVENTORY',
-    image: '../src/assets/extract.png',
+    image: extractImage,
     alt: 'Simple mod extraction tool.',
     description:
       'A simple mod extraction tool designed to seemlessly extract mod files depending on the type of game selected.',
@@ -230,7 +234,7 @@ function AboutPage() {
       </PageHeading>
       <section className='about-layout'>
         <figure className='portrait-frame'>
-          <img src='../src/assets/selfpor.jpg' alt='Self Portrait' />
+          <img src={selfPortrait} alt='Self Portrait' />
           <figcaption>Jake Szymanski · Ontario</figcaption>
         </figure>
         <div className='about-copy'>
