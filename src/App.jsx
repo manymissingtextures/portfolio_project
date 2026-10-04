@@ -496,8 +496,8 @@ function ServicesPage() {
       </PageHeading>
       <section className='services-hero'>
         <img
-          src='https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1500&q=85'
-          alt='A small team sharing ideas around a laptop'
+          src={blogImage}
+          alt='Screenshot of my blogging web application'
         />
         <div>
           <p className='eyebrow'>COLLABORATIVE BY DEFAULT</p>
