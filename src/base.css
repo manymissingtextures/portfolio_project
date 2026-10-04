@@ -1,0 +1,92 @@
+:root {
+  font-family: 'DM Sans', sans-serif;
+  color: #283331;
+  background: #f3f4ef;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  --ink: #20302d;
+  --muted: #64716c;
+  --paper: #f3f4ef;
+  --white: #fff;
+  --line: #d8ddd6;
+  --lime: #c7ed6b;
+  --coral: #ef755d;
+  --blue: #6c9cab;
+  --display: 'Space Grotesk', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+html {
+  min-width: 320px;
+  scroll-behavior: smooth;
+}
+body {
+  min-width: 320px;
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+}
+button,
+input,
+textarea {
+  font: inherit;
+}
+a {
+  color: inherit;
+}
+img {
+  display: block;
+  max-width: 100%;
+}
+h1,
+h2,
+h3,
+p,
+figure {
+  margin: 0;
+}
+h1,
+h2,
+h3 {
+  color: var(--ink);
+  font-family: var(--display);
+  font-weight: 600;
+  line-height: 1.05;
+}
+h1 {
+  font-size: clamp(3rem, 6vw, 5.75rem);
+  letter-spacing: 0;
+}
+h2 {
+  font-size: clamp(1.75rem, 3vw, 2.6rem);
+  letter-spacing: 0;
+}
+h3 {
+  font-size: 1.2rem;
+}
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+:focus-visible {
+  outline: 3px solid var(--coral);
+  outline-offset: 4px;
+}
+::selection {
+  color: var(--ink);
+  background: var(--lime);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
