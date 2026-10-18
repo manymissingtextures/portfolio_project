@@ -13,12 +13,53 @@ A responsive six-page personal portfolio built with React, Vite, and React Route
 
 ## Run locally
 
+This project now includes a Node.js + Express + MongoDB backend alongside the Vite frontend.
+
+1. Copy the environment template and replace `<db_password>` with the password for `immissingatexture_db_user`. Also set a private JWT secret:
+
+```powershell
+copy .env.example .env
+```
+
+2. Install dependencies and start both the frontend and the API together:
+
 ```powershell
 npm install
 npm run dev
 ```
 
-Vite prints the local URL, usually `http://localhost:5173/`.
+The frontend typically runs at `http://localhost:5173/` and the API runs at `http://localhost:5000/`.
+
+To run only the backend:
+
+```powershell
+npm run server
+```
+
+## Environment variables
+
+Create a local `.env` file based on `.env.example` using the following variables:
+
+- `PORT` — backend port (default `5000`)
+- `MONGODB_URI` — MongoDB connection string
+- `JWT_SECRET` — secret used to sign JWT tokens
+- `JWT_EXPIRES_IN` — token lifetime, for example `1h`
+
+Do not commit secrets to Git. The repository already ignores `.env` files.
+
+The provided Atlas cluster is `portfolio.yrygjy2.mongodb.net`; the backend selects the `Portfolio` database on that cluster. If the database user's password contains special characters, URL-encode them in the URI. The API will not start if `MONGODB_URI` is missing or the database connection fails.
+
+## API overview
+
+The backend exposes REST endpoints for portfolio data and authentication:
+
+- `/api/contacts`
+- `/api/projects`
+- `/api/qualifications`
+- `/api/educations`
+- `/api/users` with signup/signin routes and protected profile access
+
+The API checks the `Authorization: Bearer <token>` header for protected requests.
 
 ## Personalize before publishing
 
