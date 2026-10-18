@@ -74,6 +74,20 @@ export const getAllUsers = async (req, res) => {
   }
 };
 
+export const getUserById = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found.' });
+    }
+
+    return res.json(user);
+  } catch (error) {
+    return res.status(400).json({ message: 'Failed to fetch user.', error: error.message });
+  }
+};
+
 export const getUserProfile = async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
@@ -85,6 +99,27 @@ export const getUserProfile = async (req, res) => {
     return res.json(user);
   } catch (error) {
     return res.status(500).json({ message: 'Failed to fetch profile.', error: error.message });
+  }
+};
+
+export const updateUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found.' });
+    }
+
+    const { name, email, password } = req.body;
+    if (name !== undefined) user.name = name;
+    if (email !== undefined) user.email = email.trim().toLowerCase();
+    if (password !== undefined) user.password = password;
+    user.updated = new Date();
+
+    await user.save();
+    return res.json(user);
+  } catch (error) {
+    return res.status(400).json({ message: 'Failed to update user.', error: error.message });
   }
 };
 
