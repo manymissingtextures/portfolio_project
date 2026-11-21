@@ -78,3 +78,5 @@ Protected requests require `Authorization: Bearer <token>`. Admin-only operation
 npm --prefix client run build
 npm test
 ```
+
+Netlify builds the React client from `client/` and publishes `client/dist` using `netlify.toml`. The Express/MongoDB API must be hosted separately for registration, contact submissions, and admin features to work on the deployed site.
