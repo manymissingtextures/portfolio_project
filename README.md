@@ -79,4 +79,4 @@ npm --prefix client run build
 npm test
 ```
 
-Netlify builds the React client from `client/` and publishes `client/dist` using `netlify.toml`. The Express/MongoDB API must be hosted separately for registration, contact submissions, and admin features to work on the deployed site.
+Netlify builds the React client from `client/` and publishes `client/dist` using `netlify.toml`. The Express/MongoDB API must be hosted separately for registration, contact submissions, and admin features to work on the deployed site. Set Netlify's `VITE_API_URL` environment variable to the public API origin; leave it unset for local development, where Vite proxies requests to the backend.

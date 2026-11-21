@@ -3,10 +3,11 @@ import { createRoot } from 'react-dom/client';
 import './styles.css';
 
 const AuthContext = React.createContext(null);
+const apiBaseUrl = (import.meta.env.VITE_API_URL || '').replace(/\/+$/, '');
 
 const api = async (path, options = {}) => {
   const token = localStorage.getItem('portfolio-token');
-  const response = await fetch(path, {
+  const response = await fetch(`${apiBaseUrl}${path}`, {
     ...options,
     headers: {
       'Content-Type': 'application/json',
@@ -14,7 +15,12 @@ const api = async (path, options = {}) => {
       ...options.headers,
     },
   });
-  const data = await response.json().catch(() => ({}));
+  let data;
+  try {
+    data = await response.json();
+  } catch {
+    throw new Error('The API did not return JSON. Check the backend URL and deployment.');
+  }
   if (!response.ok) throw new Error(data.message || 'Request failed');
   return data;
 };
@@ -110,7 +116,10 @@ function ResourcePage({ type }) {
 
   const load = async () => {
     try {
-      setItems(await api(`/api/${type}`));
+      const data = await api(`/api/${type}`);
+      if (!Array.isArray(data)) throw new Error('The API returned an invalid resource list.');
+      setItems(data);
+      setError('');
     } catch (err) {
       setError(err.message);
     }
