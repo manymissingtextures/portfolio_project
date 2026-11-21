@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+const { isDbConnected, mongoose } = require('./config/db');
 
 const app = express();
 
@@ -12,6 +13,10 @@ app.get('/', (req, res) => {
   res.json({
     message: 'Portfolio backend is running successfully.',
     version: '1.0.0',
+    database: {
+      connected: isDbConnected(),
+      name: mongoose.connection.name || null,
+    },
   });
 });
 
