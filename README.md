@@ -85,7 +85,7 @@ Netlify builds the React client from `client/` and publishes `client/dist` using
 
 1. In Render, choose **New → Blueprint**, connect this repository on `main`, and let Render read `render.yaml`.
 2. Enter `MONGODB_URI`, `ADMIN_EMAIL`, and `ADMIN_PASSWORD` in Render's private environment settings. Render generates `JWT_SECRET`. Do not put these values in Git or chat.
-3. Use the Atlas URI for the database that contains your portfolio data, and ensure the Atlas network access list permits the Render service to connect. Check the API root response: `database.connected` should be `true`, and `database.name` should be the intended database. If using a new database, add the project and qualification records there.
+3. Include the database name in the Atlas URI path (`<cluster>/<database>`). Without it, MongoDB can select the default `test` database. Use the database containing your portfolio records, and ensure Atlas allows the Render service to connect. Check the API root response: `database.connected` should be `true`, and `database.name` should be the intended database. If using a new database, add the project and qualification records there.
 4. After the Render service is healthy, copy its public HTTPS origin. Set `VITE_API_URL` in `netlify.toml` to that origin (no trailing slash) and push the change to trigger a Netlify redeploy.
 
 Render's free service may sleep when idle. Its first request after inactivity can take longer while it starts.

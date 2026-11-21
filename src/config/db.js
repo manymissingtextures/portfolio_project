@@ -25,7 +25,14 @@ const connectDB = async () => {
 
 const removeUniqueContactEmailIndex = async () => {
   const Contact = require('../models/Contact');
-  const indexes = await Contact.collection.indexes();
+  let indexes;
+  try {
+    indexes = await Contact.collection.indexes();
+  } catch (error) {
+    if (error.codeName === 'NamespaceNotFound') return;
+    throw error;
+  }
+
   const emailIndex = indexes.find(
     (index) => index.key.email === 1 && index.unique,
   );
