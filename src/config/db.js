@@ -11,7 +11,7 @@ const connectDB = async () => {
     });
 
     isConnected = true;
-    console.log(`MongoDB connected successfully: ${uri}`);
+    console.log('MongoDB connected successfully.');
     await removeUniqueContactEmailIndex();
     await seedAdminUser();
   } catch (error) {

@@ -80,3 +80,12 @@ npm test
 ```
 
 Netlify builds the React client from `client/` and publishes `client/dist` using `netlify.toml`. The Express/MongoDB API must be hosted separately for registration, contact submissions, and admin features to work on the deployed site. Set Netlify's `VITE_API_URL` environment variable to the public API origin; leave it unset for local development, where Vite proxies requests to the backend.
+
+## Deploying the API on Render
+
+1. In Render, choose **New → Blueprint**, connect this repository on `main`, and let Render read `render.yaml`.
+2. Enter `MONGODB_URI`, `ADMIN_EMAIL`, and `ADMIN_PASSWORD` in Render's private environment settings. Render generates `JWT_SECRET`. Do not put these values in Git or chat.
+3. Use the Atlas URI for the database that contains your portfolio data, and ensure the Atlas network access list permits the Render service to connect. If using a new database, add the project and qualification records there.
+4. After the Render service is healthy, copy its public HTTPS origin. In Netlify, set `VITE_API_URL` to that origin (no trailing slash) and redeploy the site.
+
+Render's free service may sleep when idle. Its first request after inactivity can take longer while it starts.
