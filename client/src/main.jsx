@@ -125,7 +125,26 @@ function ResourcePage({ type }) {
     }
   };
 
-  useEffect(() => { load(); }, [type]);
+  useEffect(() => {
+    let cancelled = false;
+    setItems([]);
+    setForm(type === 'projects' ? emptyProject : emptyQualification);
+    setEditing(null);
+    setError('');
+
+    const loadCurrentType = async () => {
+      try {
+        const data = await api(`/api/${type}`);
+        if (!Array.isArray(data)) throw new Error('The API returned an invalid resource list.');
+        if (!cancelled) setItems(data);
+      } catch (err) {
+        if (!cancelled) setError(err.message);
+      }
+    };
+
+    loadCurrentType();
+    return () => { cancelled = true; };
+  }, [type]);
 
   const submit = async (event) => {
     event.preventDefault();
@@ -361,8 +380,8 @@ function App() {
         </div>
       </nav>
       {actionError && <p className="error page" role="status">{actionError}</p>}
-      {route === '/projects' ? <ResourcePage type="projects" /> :
-       route === '/qualifications' ? <ResourcePage type="qualifications" /> :
+      {route === '/projects' ? <ResourcePage key="projects" type="projects" /> :
+       route === '/qualifications' ? <ResourcePage key="qualifications" type="qualifications" /> :
        route === '/contact' ? <ContactPage /> :
        route === '/signin' ? <AuthPage mode="signin" /> :
        route === '/signup' ? <AuthPage mode="signup" /> :
